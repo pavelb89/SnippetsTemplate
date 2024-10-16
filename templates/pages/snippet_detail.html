@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load mainapp_tags %}
+
 {% block content %}
     <!-- Begin page content -->
     <div class="container">
@@ -32,8 +34,19 @@
                         </div>
                     </div>
                  </fieldset>
-                 
+                 <br>
 
+                 <div class="row">
+                    <div class="col">
+                        {% comment %} 
+                            <button onclick="{% delete_snippet_tag snippet.id %}">Удалить сниппет</button>
+                        {% endcomment %}
+                        <div class='col-6'>
+                            <input type="submit" class='btn' value="Удалить сниппет" onclick="{% delete_snippet_tag snippet.id %}" />
+                    
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

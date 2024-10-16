@@ -34,9 +34,22 @@
                         {% for snippet in snippets %}
                         <tr>
                             <td scope="row">{{ snippet.id }}</td>
-                            <td><a href="{% url 'snippet-detail' snippet.id %}"> {{ snippet.name }} </a></td>
+                            <td><a href="{% url 'snippet-detail' snippet.id %}"> {{ snippet.name }} </a>
+                                <a href="{% url "snippet-delete" snippet.id %}">
+                                    <i style="color: red;" class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
                             <td>{{ snippet.lang }}</td>
                             <td>{{ snippet.creation_date | date:"Y-m-d H:i:s" }}</td>
+                             {# Заготовка для edit'a #}
+                            {# <td><a href="{% url "snippet-edit" snippet.id %}" class="btn btn-primary">Edit</a></td> #}
+                            <td>
+                                <form action="{% url "snippet-delete" snippet.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+
+                            </td>
                         </tr>
                         {% empty %}
                         <tr>
@@ -46,7 +59,7 @@
                     </tbody>
                 </table>
                 <div align="right">
-                    <i style="color: gray;">Всего сниппетов: 2</i>
+                    <i style="color: gray;">Всего сниппетов: {{ snippets.count }}</i>
                 </div>
             </div>
         </div>
