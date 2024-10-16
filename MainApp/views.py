@@ -1,8 +1,11 @@
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
+
+from django.contrib import auth
 
 from MainApp.models import Snippet
 from MainApp.forms import SnippetForm
@@ -80,3 +83,26 @@ def snippet_delete(request, snippet_id):
         snippet = get_object_or_404(Snippet, id=snippet_id)
         snippet.delete()
     return redirect("snippets-list")
+
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        # print("username =", username)
+        # print("password =", password)
+        # return HttpResponse(f"username = {username}; password = {password}")
+        user = auth.authenticate(request, username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+        else:
+           # Return error message
+           pass
+    # return redirect('home')
+    return redirect(request.META.get('HTTP_REFERER', '/'))  # на ту страницу, на которой вы логинились
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect('home')
+
