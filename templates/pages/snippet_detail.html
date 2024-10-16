@@ -14,13 +14,16 @@
 
         <div class="row">
             <div class="col">
+                
+                {% if type == 'view' %}
+                
                 <fieldset disabled>
                     <div class="row disabled">
                         <div class="col col-8">
                             Название: <input type="text" value="{{ snippet.name }}" class="form-control">
                         </div>
                         <div class="col col-4">
-                            Дата создания:<input type="text" value="{{ snippet.creation_date | date:"Y-m-d H:i:s" }}" class="form-control">
+                            Дата создания:<input type="text" value="{{ snippet.creation_date }}" class="form-control">
                         </div>
                     </div>
                     <hr>
@@ -29,26 +32,54 @@
                             <div class="p-2 h-100" style="border:1px solid #ced4da; border-radius:5px;">
                                 <p>
                                     {{ snippet.code }}
-                                </p>
-                            </div>
+                                </p>              
+                            </div>              
                         </div>
                     </div>
-                 </fieldset>
-                 <br>
+                 </fieldset>                
+                 </fieldset>   
 
-                 <div class="row">
-                    <div class="col">
-                        {% comment %} 
-                            <button onclick="{% delete_snippet_tag snippet.id %}">Удалить сниппет</button>
-                        {% endcomment %}
-                        <div class='col-6'>
-                            <input type="submit" class='btn' value="Удалить сниппет" onclick="{% delete_snippet_tag snippet.id %}" />
-                    
+                {% else %}
+
+                 <form action="" method='post'>
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col col-8">
+                            Название: <input type="text" name="name" value="{{ snippet.name }}" class="form-control">
                         </div>
                     </div>
-                </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <div class="p-2 h-100" style="border:1px solid #ced4da; border-radius:5px;">
+                                <textarea name="code">
+                                    {{ snippet.code }}
+                                </textarea>              
+                            </div>              
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary"> Обновить</button>
+                 </form>
+
+                {% endif %} 
+
             </div>
         </div>
     </div>
 
 {% endblock %}
+
+{% comment %} 
+<div class="row">
+    <div class="col">
+        
+            <button onclick="{% delete_snippet_tag snippet.id %}">Удалить сниппет</button>
+        
+        <div class='col-6'>
+            <input type="submit" class='btn' value="Удалить сниппет" onclick="{% delete_snippet_tag snippet.id %}" />
+    
+        </div>
+    </div>
+</div>
+{% endcomment %}
