@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Begin page content -->
+<main role="main" class="mt-3 flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>{{ pagename }}</h1>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Создать пользователя">
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
