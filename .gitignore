@@ -113,3 +113,5 @@ test-data
 *.bak
 *.ini
 webdrivers/
+
+staticfiles/
